@@ -19,8 +19,10 @@ def solution():
 
             n -= temp
             answer.append(temp)            
-    
-    for _ in range(len(answer)-1, -1, -1):
-        print(answer[_], end=' ')
+        answer.sort()
 
+        for num in answer:
+            print(num, end=' ')    
+        print('')
+        
 solution()
