@@ -10,5 +10,4 @@ def solution():
     print(answer[-1][0])
     print(answer[0][0])
 
-
 solution()
