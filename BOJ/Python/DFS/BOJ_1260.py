@@ -14,6 +14,7 @@ def solution():
         graph[x][y] = 1
         graph[y][x] = 1
     
+    print(graph)
     dfs(graph, v, visited)
     
     visited = [False] * (n+1)
