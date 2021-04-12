@@ -9,7 +9,6 @@ def solution():
     count = 0 
 
     while start <= end and end <= n :
-
         if sum(array[start:end]) == m:
             end += 1
             count += 1
