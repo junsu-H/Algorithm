@@ -16,6 +16,7 @@ def solution():
             else:
                 if len(stack) == 0 or stack[len(stack) - 1] == ')':
                     flag = False
+                    break
                 else:
                     stack.pop()
         
