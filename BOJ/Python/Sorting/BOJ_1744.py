@@ -10,7 +10,8 @@ def solution():
     seq_list.sort()
 
     for i in range(len(seq_list))
-    if l % 2 == 0:
+        if i % 2 == 0:
+
         
     elif len(seq_list) % 2 == 1:
 solution()
