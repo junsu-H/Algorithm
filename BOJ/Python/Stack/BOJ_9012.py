@@ -1,11 +1,14 @@
-import sys
-sys.setrecursionlimit(10 ** 9)
+# BOJ_9012 괄호
+
+from sys import stdin
+
+input = stdin.readline
 
 def solution():
-    t = int(sys.stdin.readline().rstrip())
+    t = int(input().rstrip())
     
     for _ in range(t):
-        vps = list(map(str, sys.stdin.readline().rstrip()))
+        vps = list(map(str, input().rstrip()))
         
         stack = []
         flag = True
@@ -14,7 +17,7 @@ def solution():
             if string == '(':
                 stack.append(string)
             else:
-                if len(stack) == 0 or stack[len(stack) - 1] == ')':
+                if len(stack) == 0:
                     flag = False
                     break
                 else:
