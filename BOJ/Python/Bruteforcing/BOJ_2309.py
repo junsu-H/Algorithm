@@ -1,14 +1,22 @@
-# BOJ_1254 팰린드롬 만들기
+# BOJ_2309 일곱 난쟁이
 
-import sys
-sys.setrecursionlimit(10 ** 9)
+from sys import stdin
+
+input = stdin.readline
 
 def solution():
-    s = sys.stdin.readline().rstrip()
-    
-    for i in range(len(s)):
-        if s[i:] == s[i:][::-1]:
-            print(i + len(s))
-            break
-    
+    dwarf = [int(input().rstrip()) for _ in range(9)]
+    dwarf.sort()
+    answer = sum(dwarf)
+
+    for i in range(9):
+        for j in range(i+1, 9):
+            if answer - dwarf[i] - dwarf[j] == 100:
+                for k in range(9):
+                    if k == i or k == j:
+                        continue
+                    else:
+                        print(dwarf[k])
+                exit()
+
 solution()
