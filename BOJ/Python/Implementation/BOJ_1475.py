@@ -1,19 +1,21 @@
 # BOJ_1475 방 번호
-import math
-import sys
-sys.setrecursionlimit(10 ** 9)
+
+from math import ceil
+from sys import stdin
+
+input = stdin.readline
 
 def solution():
-    string = sys.stdin.readline().rstrip()
+    number = input().rstrip()
     answer = [0] * 10
 
-    for i in string:
-        i = int(i)
-        if i == 6 or i == 9:
-            answer[5] += 0.5
+    for n in number:
+        n = int(n)
+        if n == 6 or n == 9:
+            answer[6] += 0.5
         else:
-            answer[i] += 1
+            answer[n] += 1
 
-    print(math.ceil(max(answer)))
+    print(ceil(max(answer)))
 
 solution()
