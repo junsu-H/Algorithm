@@ -1,4 +1,4 @@
-# 미로 탐색
+# BOJ_2178 미로 탐색
 
 from collections import deque
 
