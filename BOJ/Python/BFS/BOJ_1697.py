@@ -11,7 +11,6 @@ queue = deque([(N, 0)])
 def bfs():
     while queue:
         value, level = queue.popleft()
-        visit[value] = 1
 
         if value == K:
             return level
