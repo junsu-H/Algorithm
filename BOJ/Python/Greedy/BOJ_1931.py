@@ -1,20 +1,15 @@
-import sys
+# BOJ_1931 회의실 배정
 
-def solution():
-    n = int(sys.stdin.readline().rstrip())
-    array = []
-    count = 0
-    start = 0
-    for _ in range(n):
-        array.append(list(map(int, sys.stdin.readline().rstrip().split())))
+N = int(input())
 
-    array = sorted(array, key = lambda x: [x[1], x[0]])
+data = sorted([list(map(int, input().split())) for _ in range(N)], key = lambda x: (x[1], x[0]))
 
-    for i in array:
-        if i[0] >= start:
-            start = i[1]
-            count += 1
-    
-    print(count)
-    
-solution()
+temp = 0
+answer = 0
+
+for start, end in data:
+	if temp <= start:
+		temp = end
+		answer += 1
+
+print(answer)
