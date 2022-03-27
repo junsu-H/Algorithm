@@ -1,20 +1,15 @@
-import sys
-sys.setrecursionlimit(10 ** 9)
+# BOJ_1449 수리공 항승
 
-def solution():
-    n, l = map(int, sys.stdin.readline().rstrip().split())
+N, L = map(int, input().split())
 
-    array = list(map(int, sys.stdin.readline().rstrip().split()))
-    array.sort()
-    
-    start = 0
-    count = 0
+tapes = sorted(list(map(int, input().split())))
 
-    for location in array:
-        if start < location:
-            start = location + l - 1
-            count += 1
+start = 0
+count = 0
 
-    print(count)
+for tape in tapes:
+	if start < tape:
+		start = tape + L - 1
+		count += 1
 
-solution()
+print(count)
