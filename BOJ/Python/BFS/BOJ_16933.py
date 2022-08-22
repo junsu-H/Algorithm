@@ -19,7 +19,7 @@ def check(nx, ny, nz):
 	return 0 <= nx < N and 0 <= ny < M and visited[nx][ny][nz] == 0
 
 def bfs():
-	q = deque([(0, 0, 0)])
+	q = deque([(0, 0, K)])
 
 	day = 1
 
@@ -45,14 +45,14 @@ def bfs():
 						visited[nx][ny][z] = today + 1
 					
 					# 벽일 때
-					elif K > z and visited[nx][ny][z+1] == 0:
+					elif z > 0 and visited[nx][ny][z - 1] == 0:
 						# 가만히
 						if night:
 							q.append((x, y, z))
 						# 벽 부수고
 						else:
-							q.append((nx, ny, z + 1))
-							visited[nx][ny][z + 1] = today + 1
+							q.append((nx, ny, z - 1))
+							visited[nx][ny][z - 1] = today + 1
 			
 		if day > 0: day += 1
 		else: day -= 1
