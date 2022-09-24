@@ -1,17 +1,10 @@
-# BOJ_18310 안테나
+# BOJ_18310 안테나 S3
 
 from sys import stdin
 
 input = stdin.readline
 
-def solution():
-    n = int(input().rstrip())
-    home = list(map(int, input().rstrip().split()))
-    home.sort()
-    temp = 0
+N = int(input().rstrip())
+home = sorted(list(map(int, input().rstrip().split())))
 
-    for i in range(n//2):
-        temp += (home[i] + home[-i])//2
-    print(temp//2)
-
-solution()
+print(home[(N-1)//2])
