@@ -1,18 +1,19 @@
-import sys
+# BOJ_10773 제로 S4
 
-def solution():
-    n = int(sys.stdin.readline().rstrip())
-    array = []
-    try:
-        for i in range(n):
-            m = int(sys.stdin.readline().rstrip())
-            if m != 0:
-                array.append(m)
-            else:
-                array.pop()  
-    except:
-        print(0)
+from sys import stdin
 
-    print(sum(array))
+input = stdin.readline
 
-solution()
+K = int(input().rstrip())
+
+stack = []
+
+for _ in range(K):
+	num = int(input().rstrip())
+
+	if num != 0:
+		stack.append(num)
+	elif num == 0 and stack:
+		stack.pop()
+
+print(sum(stack))
