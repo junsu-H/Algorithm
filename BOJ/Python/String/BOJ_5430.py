@@ -1,42 +1,47 @@
-# BOJ_5430 AC
+# BOJ_5430 AC G5
 
-import sys
-sys.setrecursionlimit(10 ** 9)
+from sys import stdin
 from collections import deque
 
-def solution():
-    t = int(sys.stdin.readline().rstrip())
-    
-    for i in range(t):
-        rev_count = 0
-        err_flag = False
+input = stdin.readline
 
-        p = sys.stdin.readline().rstrip()
+T = int(input().rstrip())
 
-        n = int(sys.stdin.readline().rstrip())
-        array = sys.stdin.readline().rstrip()[1:-1].split(",")
-        array = deque(array)
+for _ in range(T):
+	reverse_cnt = 0
+	is_error = False
 
-        for string in p:
-            if string == 'R':
-                rev_count += 1
-            elif string == 'D':
-                if n == 0:
-                    err_flag = True
-                    break
-                
-                if rev_count % 2 == 0:
-                    array.popleft()
-                elif rev_count % 2 == 1:
-                    array.pop()
-                n -= 1
-                    
-        if rev_count % 2 == 1:
-            array.reverse()
-        
-        if err_flag:
-            print("error")
-        else:
-            print('[' + ','.join(array) + ']')
+	p = input().rstrip()
 
-solution()
+	n = int(input().rstrip())
+	data = deque(input().rstrip()[1:-1].split(","))
+
+	for command in p:
+		# 배열을 뒤집어야 할 때
+		if command == "R":
+			reverse_cnt += 1
+		
+		# 배열 중 가장 앞 요소를 삭제해야 할 때
+		elif command == "D":
+			if n == 0:
+				is_error = True
+				break
+			
+			# reverse_cnt 짝수면 처음이랑 같으므로 앞에서 삭제
+			if reverse_cnt % 2 == 0:
+				data.popleft()
+
+			# reverse_cnt 홀수면 뒤집어야 하므로 뒤에서 삭제
+			elif reverse_cnt % 2 == 1:
+				data.pop()
+			
+			# 배열 하나가 삭제되므로 -1 해줘야 함.
+			n -= 1
+				
+	if reverse_cnt % 2 == 1:
+		data.reverse()
+	
+	if is_error:
+		print("error")
+	else:
+		print("[" + ",".join(data) + "]")
