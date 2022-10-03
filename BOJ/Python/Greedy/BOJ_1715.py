@@ -1,21 +1,25 @@
-import sys
-import heapq
+# BOJ_1715 카드 정렬하기 G4
 
-def solution():
-    n = int(sys.stdin.readline().rstrip())
-    
-    answer = 0
+from sys import stdin
+from heapq import heapify, heappush, heappop
 
-    array = []
-    for _ in range(n):
-        array.append(int(sys.stdin.readline().rstrip()))
-    
-    heapq.heapify(array)
-    while len(array)>1:
-        card_sum = heapq.heappop(array) + heapq.heappop(array)
-        heapq.heappush(array, card_sum)
-        answer += card_sum
+input = stdin.readline()
 
-    print(answer)
+N = int(input().rstrip())
+heap = []
 
-solution()
+answer = 0
+
+for _ in range(N):
+	heap.append(int(input().rstrip()))
+
+	# 최소힙
+	heapify(heap)
+	
+	while len(heap) > 1:
+		card_sum = heappop(heap) + heappop(heap)
+		heappush(heap, card_sum)
+
+		answer += card_sum
+
+print(answer)
