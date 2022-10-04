@@ -1,33 +1,27 @@
-# BOJ_1697 숨바꼭질
+# BOJ_1697 숨바꼭질 S1
 
+from sys import stdin
 from collections import deque
 
-N, K = map(int, input().split())
+input = stdin.readline
 
-max_idx = 100_001
-visit = [0] *  max_idx
-queue = deque([(N, 0)])
+N, K = map(int, input().rstrip().split())
 
-def bfs():
-    while queue:
-        value, level = queue.popleft()
+max_num = 100_001
+visited = [0] * max_num
 
-        if value == K:
-            return level
-        
-        level += 1
-        for i in range(1, 4):
-            if i == 1: 
-                nv = value - 1
-            elif i == 2: 
-                nv = value + 1
-            elif i == 3: 
-                nv = value * 2
-        
-            if 0 <= nv < max_idx and visit[nv] == 0:
-                visit[nv] = 1
-                queue.append((nv, level))
-    
-    return level
+q = deque([(N, 0)])
+while q:
+	# 위치, 시간
+	location, sec = q.popleft()
 
-print(bfs())
+	if location == K:
+		print(sec)
+		break
+	
+	# 경우의 수 3가지
+	for l in (location-1, location+1, location*2):
+		# 최대로 갈 수 있는 위치, 한 번 방문했는지 확인
+		if 0 <= l < max_num and visited[l] == 0:
+			visited[l] = 1
+			q.append((l, sec+1))

@@ -1,75 +1,71 @@
 # BOJ_4179 불! G4
 
+from sys import stdin
 from collections import deque
+
+input = stdin.readline
 
 dx = [-1, 1, 0, 0]
 dy = [0, 0, -1, 1]
 
-R, C = map(int, input().split())
-maze = [list(map(str, input())) for _ in range(R)]
+R, C = map(int, input().rstrip().split())
+maze = [list(map(str, input().rstrip())) for _ in range(R)]
 
-j_q = deque()
-f_q = deque()
-answer = 0
+jihoon_q = deque()
+fire_q = deque()
 
 for i in range(R):
     for j in range(C):
-        if maze[i][j] == "J":
-            j_q.append((i, j))
-        if maze[i][j] == "F":
-            f_q.append((i, j))
+        if maze[i][j] == "J": jihoon_q.append((i, j))
+        elif maze[i][j] == "F": fire_q.append((i, j))
 
+depth = []
+answer = 0
 
-def bfs():
-    global j_q, f_q, answer
+while True:
+	# 1분씩 더하기
+	answer += 1
 
-    depth = []
+	# 불 먼저
+	while fire_q:
+		x, y = fire_q.popleft()
 
-    while True:
-        answer += 1
+		for i in range(4):
+			nx = x + dx[i]
+			ny = y + dy[i]
 
-        while f_q:
-            x, y, = f_q.popleft()
+			if 0 <= nx < R and 0 <= ny < C:
+				if maze[nx][ny] == "." or maze[nx][ny] == "V":
+					# maze.append((nx, ny)) 하면 매 분 한 칸씩 가는 걸 확인 못 함.
+					depth.append((nx, ny))
+					maze[nx][ny] = "F"
 
-            for i in range(4):
-                nx = x + dx[i]
-                ny = y + dy[i]
+	# 1분 후 fire_q
+	fire_q = deque(depth)
+	depth.clear()
 
-                if 0 <= nx < R and 0 <= ny < C:
-                    if maze[nx][ny] == "." or maze[nx][ny] == "V":
-                        # maze.append((nx, ny)) 하면 매 분 한 칸씩 가는 걸 확인 못 함.
-                        depth.append((nx, ny))
-                        maze[nx][ny] = "F"
+	# 그 다음에 지훈
+	while jihoon_q:
+		x, y = jihoon_q.popleft()
 
-        # 매 분 후 f_q
-        f_q = deque(depth)
+		if x == 0 or y == 0 or x == R - 1 or y == C - 1:
+			print(answer)
+			exit()
 
-        depth.clear()
-        while j_q:
-            x, y, = j_q.popleft()
+		for i in range(4):
+			nx = x + dx[i]
+			ny = y + dy[i]
 
-            if x == 0 or y == 0 or x == R - 1 or y == C - 1:
-                return answer
+			if 0 <= nx < R and 0 <= ny < C:
+				if maze[nx][ny] == ".":
+					# maze.append((nx, ny)) 하면 매 분 한 칸씩 가는 걸 확인 못 함.
+					depth.append((nx, ny))
+					maze[x][y] = "V"
+					maze[nx][ny] = "J"
 
-            for i in range(4):
-                nx = x + dx[i]
-                ny = y + dy[i]
+	# 1분 후 jihoon_q
+	jihoon_q = deque(depth)
 
-                if 0 <= nx < R and 0 <= ny < C:
-                    if maze[nx][ny] == ".":
-                        # maze.append((nx, ny)) 하면 매 분 한 칸씩 가는 걸 확인 못 함.
-                        depth.append((nx, ny))
-                        maze[x][y] = "V"
-                        maze[nx][ny] = "J"
-
-        # 매 분 후 j_q
-        j_q = deque(depth)
-
-        if not j_q:
-            return False
-
-
-if bfs():
-    print(answer)
-else:
-    print("IMPOSSIBLE")
+	if not jihoon_q:
+		print("IMPOSSIBLE")
+		exit()
